@@ -12,9 +12,6 @@ EXPOSE "80/tcp"
 # Webadmin port (HTTPS)
 EXPOSE "7080/tcp"
 
-# Define the volumes used
-VOLUME "/tmp/lshttpd" "/var/log/litespeed" "/var/www/container"
-
 # Install the entrypoint script
 COPY "entrypoint.sh" "/entrypoint.sh"
 RUN chmod "u=rwx,go=" "/entrypoint.sh"
@@ -127,6 +124,9 @@ HEALTHCHECK \
 	--interval=5m \
 	--timeout=3s \
 	CMD /usr/local/lsws/bin/lswsctrl 'status' | grep -Ee '^litespeed is running with PID [0-9]+.$'
+
+# Define the volumes used
+VOLUME "/tmp/lshttpd" "/var/log/litespeed" "/var/www/container"
 
 # Set the workdir and command
 WORKDIR "/var/www"
