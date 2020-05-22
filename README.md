@@ -16,7 +16,7 @@ docker 'run' \
 
 To set the webadmin password, use the environment variable `ADMIN_PASSWORD` to set it.
 
-The container has 2 ports exposed, the HTTP port and the Web Admin interface running HTTPS on 7080.
+The container has 2 ports exposed, the HTTP port and the Web Admin interface running HTTP on 7080.
 
 The container uses 3 volumes:
 * `/tmp/lshttpd` for temporary files
