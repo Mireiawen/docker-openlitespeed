@@ -15,16 +15,17 @@ COPY "entrypoint.sh" "/entrypoint.sh"
 RUN chmod "u=rwx,go=" "/entrypoint.sh"
 
 # Make sure we have required tools
-RUN \
-	install_packages "curl" "gnupg"
+RUN install_packages \
+	"curl" \
+	"gnupg"
 
 # Install the Litespeed keys
-RUN \
-	curl --silent "http://rpms.litespeedtech.com/debian/lst_debian_repo.gpg" |\
+RUN curl --silent --show-error \
+	"http://rpms.litespeedtech.com/debian/lst_debian_repo.gpg" |\
 	apt-key add -
 
-RUN \
-	curl --silent "http://rpms.litespeedtech.com/debian/lst_repo.gpg" |\
+RUN curl --silent --show-error \
+	"http://rpms.litespeedtech.com/debian/lst_repo.gpg" |\
 	apt-key add -
 
 # Install the Litespeed repository
@@ -32,79 +33,76 @@ RUN \
 	echo "deb http://rpms.litespeedtech.com/debian/ buster main" > "/etc/apt/sources.list.d/openlitespeed.list"
 
 # Install the Litespeed
-RUN \
-	install_packages "openlitespeed" && \
+RUN install_packages \
+	"openlitespeed" && \
 	echo "cloud-docker" > "/usr/local/lsws/PLAT"
 
 # Install PageSpeed module
-RUN \
-	install_packages "ols-pagespeed"
+RUN install_packages \
+	"ols-pagespeed"
 
 # Install the PHP
-RUN \
-	install_packages "lsphp74"
+RUN install_packages \
+	"lsphp74"
 
 # Install PHP modules
-RUN \
-	install_packages \
-		"lsphp74-apcu" \
-		"lsphp74-common" \
-		"lsphp74-curl" \
-		"lsphp74-igbinary" \
-		"lsphp74-imagick" \
-		"lsphp74-imap" \
-		"lsphp74-intl" \
-		"lsphp74-json" \
-		"lsphp74-ldap" \
-		"lsphp74-memcached" \
-		"lsphp74-msgpack" \
-		"lsphp74-mysql" \
-		"lsphp74-opcache" \
-		"lsphp74-pear" \
-		"lsphp74-pgsql" \
-		"lsphp74-pspell" \
-		"lsphp74-redis" \
-		"lsphp74-sqlite3" \
-		"lsphp74-tidy"
+RUN install_packages \
+	"lsphp74-apcu" \
+	"lsphp74-common" \
+	"lsphp74-curl" \
+	"lsphp74-igbinary" \
+	"lsphp74-imagick" \
+	"lsphp74-imap" \
+	"lsphp74-intl" \
+	"lsphp74-json" \
+	"lsphp74-ldap" \
+	"lsphp74-memcached" \
+	"lsphp74-msgpack" \
+	"lsphp74-mysql" \
+	"lsphp74-opcache" \
+	"lsphp74-pear" \
+	"lsphp74-pgsql" \
+	"lsphp74-pspell" \
+	"lsphp74-redis" \
+	"lsphp74-sqlite3" \
+	"lsphp74-tidy"
 
 # Set the default PHP CLI
-RUN \
-	ln -sf "/usr/local/lsws/lsphp74/bin/lsphp" "/usr/local/lsws/fcgi-bin/lsphp5"
+RUN ln --symbolic --force \
+	"/usr/local/lsws/lsphp74/bin/lsphp" \
+	"/usr/local/lsws/fcgi-bin/lsphp5"
+
+RUN ln --symbolic --force \
+	"/usr/local/lsws/lsphp74/bin/php7.4" \
+	"/usr/bin/php"
 
 # Install the certificates
-RUN \
-	install_packages \
-		"ca-certificates"
+RUN install_packages \
+	"ca-certificates"
 
 # Install requirements
-RUN \
-	install_packages \
-		"procps" \
-		"tzdata"
+RUN install_packages \
+	"procps" \
+	"tzdata"
 
 # Create the directories
-RUN \
-	mkdir --parents \
-		"/tmp/lshttpd/gzcache" \
-		"/tmp/lshttpd/pagespeed" \
-		"/tmp/lshttpd/stats" \
-		"/tmp/lshttpd/swap" \
-		"/tmp/lshttpd/upload" \
-		"/var/log/litespeed"
+RUN mkdir --parents \
+	"/tmp/lshttpd/gzcache" \
+	"/tmp/lshttpd/pagespeed" \
+	"/tmp/lshttpd/stats" \
+	"/tmp/lshttpd/swap" \
+	"/tmp/lshttpd/upload" \
+	"/var/log/litespeed"
 
 # Make sure logfiles exist
-RUN \
-	touch \
-		"/var/log/litespeed/server.log" \
-		"/var/log/litespeed/access.log"
+RUN touch \
+	"/var/log/litespeed/server.log" \
+	"/var/log/litespeed/access.log"
 
 # Make sure we have access to files
-RUN \
-	chown --recursive \
-		"lsadm:lsadm" \
-		"/tmp/lshttpd" \
-		"/var/log/litespeed" 
-		
+RUN chown --recursive "lsadm:lsadm" \
+	"/tmp/lshttpd" \
+	"/var/log/litespeed" 
 
 # Configure the admin interface
 COPY --chown="lsadm:lsadm" \
@@ -117,12 +115,11 @@ COPY --chown="lsadm:lsadm" \
 	"/usr/local/lsws/conf/httpd_config.conf"
 
 # Create the virtual host folders
-RUN \
-	mkdir --parents \
-		"/usr/local/lsws/conf/vhosts/container" \
-		"/var/www/container" \
-		"/var/www/container/web" \
-		"/var/www/container/tmp"
+RUN mkdir --parents \
+	"/usr/local/lsws/conf/vhosts/container" \
+	"/var/www/container" \
+	"/var/www/container/web" \
+	"/var/www/container/tmp"
 
 # Configure the virtual host
 COPY --chown="lsadm:lsadm" \
@@ -130,16 +127,15 @@ COPY --chown="lsadm:lsadm" \
 	"/usr/local/lsws/conf/vhosts/container/vhconf.conf"
 
 # Set up the virtual host configuration permissions
-RUN \
-	chown --recursive \
-		"lsadm:lsadm" \
-		"/usr/local/lsws/conf/vhosts/container"
+RUN chown --recursive "lsadm:lsadm" \
+	"/usr/local/lsws/conf/vhosts/container"
 
 # Set up the virtual host document root permissions
-RUN \
-	chown --recursive \
-		"www-data:www-data" \
-		"/var/www/container"
+RUN chown --recursive "www-data:www-data" \
+	"/var/www/container"
+
+RUN chown "www-data:www-data" \
+	"/var/www"
 
 # Setup the health checking
 HEALTHCHECK \
@@ -153,5 +149,5 @@ HEALTHCHECK \
 VOLUME "/tmp/lshttpd" "/var/log/litespeed" "/var/www/container"
 
 # Set the workdir and command
-WORKDIR "/var/www"
+WORKDIR "/var/www/container"
 CMD "/entrypoint.sh"
