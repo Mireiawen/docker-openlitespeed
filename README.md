@@ -1,3 +1,5 @@
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/mireiawen/openlitespeed?style=plastic) ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/mireiawen/openlitespeed/latest?style=plastic) [![GitHub](https://img.shields.io/badge/GitHub-Mireiawen%2Fdocker--openlitespeed-blueviolet?style=plastic)](https://github.com/Mireiawen/docker-openlitespeed)
+
 Simple [OpenLiteSpeed](https://openlitespeed.org/) container running on [MiniDeb](https://github.com/bitnami/minideb).
 
 This container is  intended to be used as base image for OpenLiteSpeed based applications such as [WordPress]([https://wordpress.org/](https://wordpress.org/)) or [Drupal]([https://www.drupal.org/](https://www.drupal.org/)). The container includes PHP 7.4 and it is set as the default handler for both LiteSpeed SAPi and the command line, and as such should be usable out of the box. 
