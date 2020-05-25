@@ -150,4 +150,5 @@ VOLUME "/tmp/lshttpd" "/var/log/litespeed" "/var/www/container"
 
 # Set the workdir and command
 WORKDIR "/var/www/container"
+STOPSIGNAL "SIGTERM"
 CMD "/entrypoint.sh"

@@ -4,6 +4,14 @@ set -e
 # Start the LiteSpeed
 /usr/local/lsws/bin/litespeed
 
+function finish()
+{
+	/usr/local/lsws/bin/lswsctrl "stop"
+	pkill "tail"
+}
+
+trap cleanup SIGTERM
+
 # Update the credentials
 if [ -n "${ADMIN_PASSWORD}" ]
 then
