@@ -2,7 +2,7 @@
 
 Simple [OpenLiteSpeed](https://openlitespeed.org/) container running on [MiniDeb](https://github.com/bitnami/minideb).
 
-This container is  intended to be used as base image for OpenLiteSpeed based applications such as [WordPress]([https://wordpress.org/](https://wordpress.org/)) or [Drupal]([https://www.drupal.org/](https://www.drupal.org/)). The container includes PHP 7.4 and it is set as the default handler for both LiteSpeed SAPi and the command line, and as such should be usable out of the box. 
+This container is  intended to be used as base image for OpenLiteSpeed based applications such as [WordPress](https://wordpress.org/) or [Drupal](https://www.drupal.org/). The container includes PHP 7.4 and it is set as the default handler for both LiteSpeed SAPI and the command line, and as such should be usable out of the box. 
 
 The PHP extensions bundled with the LiteSpeed have been installed.
 
