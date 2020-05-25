@@ -149,6 +149,7 @@ HEALTHCHECK \
 VOLUME "/tmp/lshttpd" "/var/log/litespeed" "/var/www/container"
 
 # Set the workdir and command
+ENV PATH="/usr/local/lsws/bin:${PATH}"
 WORKDIR "/var/www/container"
 STOPSIGNAL "SIGTERM"
 CMD "/entrypoint.sh"
