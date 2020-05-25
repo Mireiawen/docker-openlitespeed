@@ -4,8 +4,6 @@ FROM "bitnami/minideb:buster"
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE="1"
 ENV DEBIAN_FRONTEND="noninteractive"
 
-ARG php_version="73"
-
 # HTTP port
 EXPOSE "80/tcp"
 
@@ -42,17 +40,13 @@ RUN \
 RUN \
 	install_packages "ols-pagespeed"
 
-# Install the PHP 7.3
-RUN \
-	install_packages "lsphp73"
-
-# Install the PHP 7.4
+# Install the PHP
 RUN \
 	install_packages "lsphp74"
 
 # Set the default PHP CLI
 RUN \
-	ln -sf "/usr/local/lsws/lsphp${php_version}/bin/lsphp" "/usr/local/lsws/fcgi-bin/lsphp5"
+	ln -sf "/usr/local/lsws/lsphp74/bin/lsphp" "/usr/local/lsws/fcgi-bin/lsphp5"
 
 # Install requirements
 RUN \
