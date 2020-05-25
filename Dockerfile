@@ -44,6 +44,29 @@ RUN \
 RUN \
 	install_packages "lsphp74"
 
+# Install PHP modules
+RUN \
+	install_packages \
+		"lsphp74-apcu" \
+		"lsphp74-common" \
+		"lsphp74-curl" \
+		"lsphp74-igbinary" \
+		"lsphp74-imagick" \
+		"lsphp74-imap" \
+		"lsphp74-intl" \
+		"lsphp74-json" \
+		"lsphp74-ldap" \
+		"lsphp74-memcached" \
+		"lsphp74-msgpack" \
+		"lsphp74-mysql" \
+		"lsphp74-opcache" \
+		"lsphp74-pear" \
+		"lsphp74-pgsql" \
+		"lsphp74-pspell" \
+		"lsphp74-redis" \
+		"lsphp74-sqlite3" \
+		"lsphp74-tidy"
+
 # Set the default PHP CLI
 RUN \
 	ln -sf "/usr/local/lsws/lsphp74/bin/lsphp" "/usr/local/lsws/fcgi-bin/lsphp5"
