@@ -71,6 +71,11 @@ RUN \
 RUN \
 	ln -sf "/usr/local/lsws/lsphp74/bin/lsphp" "/usr/local/lsws/fcgi-bin/lsphp5"
 
+# Install the certificates
+RUN \
+	install_packages \
+		"ca-certificates"
+
 # Install requirements
 RUN \
 	install_packages \
