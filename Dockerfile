@@ -115,8 +115,10 @@ RUN \
 
 # Setup the health checking
 HEALTHCHECK \
-	--interval=5m \
+	--start-period=15s \
+	--interval=1m \
 	--timeout=3s \
+	--retries=3 \
 	CMD /usr/local/lsws/bin/lswsctrl 'status' | grep -Ee '^litespeed is running with PID [0-9]+.$'
 
 # Define the volumes used
