@@ -146,7 +146,7 @@ HEALTHCHECK \
 	CMD /usr/local/lsws/bin/lswsctrl 'status' | grep -Ee '^litespeed is running with PID [0-9]+.$'
 
 # Define the volumes used
-VOLUME "/tmp/lshttpd" "/var/log/litespeed" "/var/www/container"
+VOLUME "/tmp/lshttpd" "/var/log/litespeed"
 
 # Set the workdir and command
 ENV PATH="/usr/local/lsws/bin:${PATH}"
